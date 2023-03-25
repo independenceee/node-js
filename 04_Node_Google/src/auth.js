@@ -1,18 +1,21 @@
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth2").Strategy;
-require("dotenv").config();
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
+
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/google/callback",
-    passReqToCallback: true,
-}, 
+  clientID: "317295161808-a1vq5v068i9fi58kab2q86dr0v1hir4m.apps.googleusercontent.com",
+  clientSecret: "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",
+  callbackURL: "http://localhost:5000/auth/google/callback",
+  passReqToCallback: true,
+},
 function(request, accessToken, refreshToken, profile, done) {
-    return done(err, profile);
-}
-))
+  return done(null, profile);
+}));
 
 passport.serializeUser(function(user, done) {
-    done(null, user);
-})
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
