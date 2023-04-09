@@ -21,32 +21,32 @@ app.use(passport.session());
 
 app.get('/', (req, res) => {
     res.send('<a href="/auth/github">Authenticate with Github</a>');
-  });
+});
   
-  app.get('/auth/github',
+app.get('/auth/github',
     passport.authenticate('github', { scope: [ 'email', 'profile' ] }
-  ));
+));
   
 app.get( '/auth/gihub/callback',
     passport.authenticate( 'github', {
       successRedirect: '/protected',
       failureRedirect: '/auth/github/failure'
     })
-  );
+);
   
-  app.get('/protected', isLoggedIn, (req, res) => {
+app.get('/protected', isLoggedIn, (req, res) => {
       console.log(req.user);
     res.send(`Hello ${req.user.displayName}`);
-  });
+});
   
-  app.get('/logout', (req, res) => {
+app.get('/logout', (req, res) => {
     req.logout();
     req.session.destroy();
     res.send('Goodbye!');
-  });
+});
   
-  app.get('/auth/google/failure', (req, res) => {
+app.get('/auth/google/failure', (req, res) => {
     res.send('Failed to authenticate..');
-  });
+});
   
-  app.listen(5000, () => console.log('listening on port: 5000'));
+app.listen(5000, () => console.log('listening on port: 5000'));
