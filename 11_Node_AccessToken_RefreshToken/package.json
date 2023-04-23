@@ -1,4 +1,9 @@
+
+
 {
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
