@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 app.use(cookieParser())
 
+
 router(app);
 
 const PORT = process.env.PORT || 5000;
