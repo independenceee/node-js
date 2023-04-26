@@ -5,13 +5,21 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectDatabase = require("./databases/connectDatabase");
 const router = require('./routes/index.routes');
-
-
+const errorHandler = require("./middlewares/errorHandler")
+const corsOptions = require("./configs/corsOptions")
+const { logger } = require("./middlewares/logEvents");
+const credentials = require('./middlewares/credentials');
 const app = express();
 
 
+app.use(credentials);
+app.use(logger);
+app.use(errorHandler);
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 app.use(cookieParser())
+
 router(app);
 
 const PORT = process.env.PORT || 5000;
