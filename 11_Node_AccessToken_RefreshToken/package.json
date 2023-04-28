@@ -2,7 +2,7 @@
 
 {
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon --inspect src/index.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

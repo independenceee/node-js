@@ -14,7 +14,6 @@ const app = express();
 
 app.use(credentials);
 app.use(logger);
-app.use(errorHandler);
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
@@ -22,6 +21,8 @@ app.use(cookieParser())
 
 
 router(app);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 const start = async function() {

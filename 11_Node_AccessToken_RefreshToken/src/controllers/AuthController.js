@@ -33,7 +33,6 @@ class AuthController {
                 password: hashedPassword,
             })
 
-            console.log(result);
 
             response.status(200).json({
                 message: `New user ${username} created`,
@@ -48,9 +47,8 @@ class AuthController {
     async login(request, response) {
         try {
             const cookies = request.cookies;
-            console.log(`${JSON.stringify(cookies)}`)
-
             const { username, password} = request.body;
+
             if(!username || !password) {
                 return response.status('404').json({
                     message: "Username and password are required",
@@ -62,7 +60,7 @@ class AuthController {
             }).exec();
 
             if(!foundUser) {
-                return response.sattus(401).json({
+                return response.status(401).json({
                     message: "User not found!"
                 })
             }
@@ -112,8 +110,6 @@ class AuthController {
 
                 foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
                 const result = await foundUser.save();
-                console.log(result);
-                console.log(roles);
                 response.cookie('jwt', newRefreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
                 response.json({ roles, accessToken });
@@ -139,7 +135,6 @@ class AuthController {
             }
             foundUser.refreshToken = foundUser.refreshToken.filter(rt => rt !== refreshToken);;
             const result = await foundUser.save();
-            console.log(result);
         
             response.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
             response.sendStatus(204);
